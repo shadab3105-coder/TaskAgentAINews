@@ -1,0 +1,80 @@
+/* Colors: slate-blue ink on cool paper, ek hi teal accent */
+:root {
+  --paper: #f3f5f8;
+  --card: #ffffff;
+  --ink: #16202e;
+  --muted: #5d6b7e;
+  --line: #d9dfe8;
+  --accent: #0e6b73;
+  --accent-soft: #dff0f1;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: "IBM Plex Sans", system-ui, sans-serif; line-height: 1.5; }
+
+.page { max-width: 1000px; margin: 0 auto; padding: 32px 20px 64px; }
+.top h1 { font-family: "IBM Plex Serif", serif; font-size: 2.2rem; margin: 0; letter-spacing: -0.01em; }
+.top p { color: var(--muted); margin: 4px 0 24px; }
+
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+.panel h2 { font-family: "IBM Plex Serif", serif; font-size: 1.25rem; margin: 0 0 14px; }
+
+button { font: inherit; cursor: pointer; }
+button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* company chips */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--ink); }
+.chip.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 18px; }
+.link { background: none; border: 0; color: var(--accent); padding: 0; text-decoration: underline; }
+.days { margin-left: auto; display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 0.9rem; }
+.days select { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; font: inherit; background: #fff; }
+.run { background: var(--ink); color: #fff; border: 0; padding: 10px 20px; border-radius: 6px; font-weight: 600; }
+.run:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.stats { color: var(--muted); font-size: 0.92rem; margin: 0 0 16px; }
+.stats strong { color: var(--ink); }
+.empty { color: var(--muted); text-align: center; padding: 28px 0; }
+.error { background: #fdecec; color: #8a1f1f; padding: 10px 14px; border-radius: 6px; }
+
+/* brief */
+.brief header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 6px; }
+.brief header small { color: var(--muted); }
+.overview { font-family: "IBM Plex Serif", serif; font-size: 1.05rem; line-height: 1.6; max-width: 70ch; margin: 0 0 18px; }
+.brief-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.brief-grid article { border-left: 3px solid var(--accent); padding: 2px 0 2px 12px; }
+.brief-grid h3 { margin: 0; font-size: 1rem; }
+.headline { margin: 2px 0 6px; color: var(--muted); font-size: 0.92rem; }
+.brief-grid ul { margin: 0; padding-left: 18px; font-size: 0.9rem; }
+
+/* filters */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.filter { padding: 4px 12px; border: 1px solid var(--line); background: #fff; border-radius: 6px; text-transform: capitalize; color: var(--ink); }
+.filter span { color: var(--muted); margin-left: 4px; }
+.filter.on { background: var(--accent-soft); border-color: var(--accent); }
+.filter:disabled { opacity: 0.4; cursor: default; }
+
+/* updates */
+.updates { display: flex; flex-direction: column; }
+.update { padding: 12px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 110px 1fr; gap: 4px 14px; align-items: start; }
+.update h4 { margin: 0; font-weight: 500; font-size: 1rem; }
+.update h4 a { color: var(--ink); text-decoration: none; }
+.update h4 a:hover { text-decoration: underline; }
+.meta { grid-column: 2; margin: 0; color: var(--muted); font-size: 0.85rem; }
+
+.tag { text-transform: capitalize; font-size: 0.8rem; font-weight: 600; padding: 2px 8px; border-radius: 4px; text-align: center; background: #e8ecf2; color: #334155; }
+.tag.product { background: #dff0f1; color: #0b5159; }
+.tag.pricing { background: #fdf0d5; color: #7a4e07; }
+.tag.hiring { background: #e6e9fb; color: #2f3a8f; }
+.tag.partnership { background: #e4f3e1; color: #2c6120; }
+.tag.financial { background: #efe7f7; color: #5b2d85; }
+.tag.legal { background: #fbe4e4; color: #8a1f1f; }
+.tag.leadership { background: #e9eef3; color: #25405c; }
+
+@media (max-width: 600px) {
+  .update { grid-template-columns: 1fr; }
+  .meta { grid-column: 1; }
+  .days { margin-left: 0; }
+}

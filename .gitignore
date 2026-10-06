@@ -1,0 +1,71 @@
+# AI Competitor Watch Agent (MERN)
+
+10 companies (Tesla, IBM, Reliance, Microsoft, Google, Amazon, Apple, NVIDIA, OpenAI, Meta) ki recent news dhundta hai,
+noise/duplicates hatata hai, category lagata hai, aur ek chhota intelligence brief banata hai.
+
+## Agent kaise kaam karta hai (server/services/)
+| Step | File | Kya karta hai |
+|------|------|---------------|
+| 1 | newsFetcher.js   | Google News RSS se recent articles (free, no API key) |
+| 2 | noiseFilter.js   | Irrelevant + clickbait/stock-tip articles hatata hai |
+| 3 | deduper.js       | Similar titles merge (Jaccard similarity), "kitne sources ne cover kiya" count karta hai |
+| 4 | categorizer.js   | product / pricing / hiring / partnership / financial / legal / leadership / other + importance score |
+| 5 | briefGenerator.js| Claude se brief (agar API key ho), warna rule-based brief |
+| - | agent.js         | Upar ke saare steps ko jodta hai (companies parallel me chalti hain) |
+
+## Folder structure
+```
+server/                 Express + Mongoose
+  config/companies.js   company list + search query + aliases
+  services/             agent ke saare steps
+  routes/agentRoutes.js API endpoints
+  models/Brief.js       history ke liye Mongo model
+  server.js
+  test-pipeline.js      fake data se test (internet nahi chahiye)
+client/                 React (Vite)
+  src/App.jsx           main page, state yahi hai
+  src/api.js            backend calls
+  src/components/       CompanySelector, BriefSummary, CategoryFilter, UpdateCard
+```
+
+## Run kaise kare
+Node 18+ chahiye.
+
+**Terminal 1 - backend**
+```
+cd server
+npm install
+cp .env.example .env      # (Windows: copy .env.example .env)
+npm run dev
+```
+**Terminal 2 - frontend**
+```
+cd client
+npm install
+npm run dev
+```
+Browser: http://localhost:5173
+
+## .env
+- `MONGO_URI` - optional. Nahi hai to bhi chalega, bas history save nahi hogi.
+- `ANTHROPIC_API_KEY` - optional. Daaloge to brief Claude likhega, warna rule-based.
+
+## API
+- `GET  /api/companies`
+- `POST /api/agent/run`  body: `{ "companies": ["Tesla","IBM"], "days": 7 }`
+- `GET  /api/agent/history`
+
+## Test (bina internet)
+```
+cd server && npm test
+```
+
+## Customize
+- Company add karni hai -> `server/config/companies.js`
+- Category keywords badalne hai -> `server/services/categorizer.js`
+- Noise rules -> `server/services/noiseFilter.js`
+node_modules/
+.env
+.env.local
+dist/
+build/
